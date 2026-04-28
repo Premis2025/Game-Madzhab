@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gim Edukasi PAI - Madzhab Fikih Islam (Final)</title>
+
+  <style>
+    body{
+      font-family:"Segoe UI", Arial, sans-serif;
+      margin:0;
+      background:#eef2f7;
+      color:#222;
+    }
+
+    header{
+      background: linear-gradient(90deg,#1f4e79,#2b78b8);
+      color:white;
+      padding:18px;
+      text-align:center;
+      position:sticky;
+      top:0;
+      z-index:99;
+      box-shadow:0 4px 12px rgba(0,0,0,0.18);
+    }
+
+    header h1{ margin:0; font-size:22px; }
+    header p{ margin:6px 0 0; font-size:14px; opacity:0.9; }
+
+    .container{
+      max-width:1100px;
+      margin:20px auto;
+      background:white;
+      border-radius:18px;
+      padding:20px;
+      box-shadow:0 5px 18px rgba(0,0,0,0.1);
+    }
+
+    .hidden{ display:none; }
+
+    .section-title{
+      color:#1f4e79;
+      margin-top:0;
+    }
+
+    .box{
+      background:#eaf3ff;
+      border-left:6px solid #1f4e79;
+      padding:14px;
+      border-radius:14px;
+      margin-bottom:15px;
+      font-size:14px;
+      line-height:1.7;
+    }
+
+    .box-yellow{
+      background:#fff3cd;
+      border-left:6px solid #d39e00;
+    }
+
+    .menu-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:14px;
+      margin-top:15px;
+    }
+
+    .card{
+      background:#f7f9fc;
+      border:1px solid #dce3ee;
+      border-radius:16px;
+      padding:18px;
+      cursor:pointer;
+      transition:0.2s;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .card:hover{
+      transform:translateY(-4px);
+      box-shadow:0 8px 18px rgba(0,0,0,0.12);
+    }
+
+    .card h2{
+      margin:0 0 10px;
+      color:#1f4e79;
+      font-size:17px;
+    }
+
+    .card p{
+      margin:0;
+      font-size:14px;
+      line-height:1.5;
+    }
+
+    .card .icon{
+      font-size:32px;
+      position:absolute;
+      right:14px;
+      top:14px;
+      opacity:0.18;
+    }
+
+    .btn{
+      background:#1f4e79;
+      color:white;
+      border:none;
+      padding:12px 14px;
+      border-radius:12px;
+      cursor:pointer;
+      font-size:14px;
+      transition:0.2s;
+      margin-top:8px;
+      margin-right:8px;
+    }
+
+    .btn:hover{ background:#163a5a; }
+
+    .btn-green{ background:#28a745; }
+    .btn-green:hover{ background:#1f7d34; }
+
+    .btn-gray{ background:#6c757d; }
+    .btn-gray:hover{ background:#545b62; }
+
+    .btn-red{ background:#dc3545; }
+    .btn-red:hover{ background:#a71d2a; }
+
+    input, select{
+      width:100%;
+      padding:12px;
+      border-radius:12px;
+      border:1px solid #ccc;
+      margin-top:8px;
+      margin-bottom:10px;
+      font-size:14px;
+    }
+
+    /* GAME UI */
+    .info-bar{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-bottom:12px;
+    }
+
+    .badge-ui{
+      background:#f0f3f7;
+      padding:10px 14px;
+      border-radius:12px;
+      font-weight:bold;
+      border:1px solid #dbe2ec;
+      font-size:14px;
+    }
+
+    .progress-wrap{
+      background:#f0f0f0;
+      border-radius:10px;
+      overflow:hidden;
+      margin-bottom:12px;
+      border:1px solid #ddd;
+    }
+
+    .progress-bar{
+      height:16px;
+      width:0%;
+      background:linear-gradient(90deg,#28a745,#00c4ff);
+      transition:0.3s;
+    }
+
+    .question-box{
+      background:#fbfbfb;
+      border:1px solid #ddd;
+      padding:18px;
+      border-radius:14px;
+    }
+
+    .question-box h3{
+      margin:0 0 10px;
+      color:#1f4e79;
+    }
+
+    .options button{
+      width:100%;
+      margin-top:10px;
+      padding:12px;
+      border:none;
+      border-radius:12px;
+      cursor:pointer;
+      background:#1f4e79;
+      color:white;
+      font-size:14px;
+      transition:0.2s;
+    }
+
+    .options button:hover{
+      background:#163a5a;
+    }
+
+    .feedback{
+      margin-top:15px;
+      padding:12px;
+      border-radius:12px;
+      font-weight:bold;
+      display:none;
+      font-size:14px;
+      line-height:1.6;
+    }
+
+    .correct{
+      background:#d4edda;
+      color:#155724;
+      border:1px solid #c3e6cb;
+    }
+
+    .wrong{
+      background:#f8d7da;
+      color:#721c24;
+      border:1px solid #f5c6cb;
+    }
+
+    .certificate{
+      border:2px dashed #1f4e79;
+      padding:18px;
+      border-radius:16px;
+      margin-top:15px;
+      background:#f7fbff;
+    }
+
+    .certificate h2{
+      margin-top:0;
+      color:#1f4e79;
+      text-align:center;
+    }
+
+    .certificate p{
+      text-align:center;
+      font-size:15px;
+      line-height:1.7;
+    }
+
+    .timeline{
+      border-left:4px solid #1f4e79;
+      padding-left:14px;
+      margin-top:10px;
+    }
+
+    .timeline-item{
+      margin-bottom:14px;
+      background:#f7f9fc;
+      padding:12px;
+      border-radius:12px;
+      border:1px solid #dce3ee;
+    }
+
+    .timeline-item b{ color:#1f4e79; }
+
+    .grid-2{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+      gap:14px;
+    }
+
+    .profile{
+      background:#fdfdfd;
+      border:1px solid #ddd;
+      padding:14px;
+      border-radius:14px;
+    }
+
+    .profile h3{
+      margin-top:0;
+      color:#1f4e79;
+    }
+
+    .leaderboard{
+      border:1px solid #ddd;
+      border-radius:14px;
+      overflow:hidden;
+      margin-top:15px;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+    }
+
+    th, td{
+      padding:12px;
+      border-bottom:1px solid #ddd;
+      text-align:left;
+      font-size:14px;
+    }
+
+    th{
+      background:#1f4e79;
+      color:white;
+    }
+
+    .loading-screen{
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background:linear-gradient(90deg,#1f4e79,#2b78b8);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      color:white;
+      z-index:9999;
+    }
+
+    .spinner{
+      width:60px;
+      height:60px;
+      border:6px solid rgba(255,255,255,0.3);
+      border-top:6px solid white;
+      border-radius:50%;
+      animation:spin 1s linear infinite;
+      margin-bottom:15px;
+    }
+
+    @keyframes spin{
+      0%{ transform:rotate(0deg); }
+      100%{ transform:rotate(360deg); }
+    }
+
+    @media print {
+      header, .no-print {
+        display:none !important;
+      }
+      body{ background:white; }
+      .container{
+        box-shadow:none;
+        border-radius:0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="loading-screen" id="loadingScreen">
+  <div class="spinner"></div>
+  <h2>Memuat Gim Edukasi...</h2>
+  <p>Ensiklopedia Madzhab Fikih Islam</p>
+</div>
+
+<header>
+  <h1>🎮 ENSIKLOPEDIA MADZHAB FIKIH ISLAM</h1>
+  <p>PAI Kelas 9 | Sejarah - Metode Hukum - Biografi Imam - Moderasi Beragama</p>
+</header>
+
+<div class="container">
+
+  <!-- MENU -->
+  <div id="menuPage">
+    <h2 class="section-title">🏠 Menu Utama</h2>
+
+    <div class="box">
+      Selamat datang. Gim ini dibuat untuk membantu siswa memahami perbedaan madzhab fikih secara ilmiah
+      dan meneladani sikap para ulama.
+    </div>
+
+    <div class="box box-yellow">
+      <b>📌 Identitas Pemain</b><br>
+      Nama Siswa:
+      <input type="text" id="studentName" placeholder="Contoh: Ahmad Fikri">
+      Kelas:
+      <input type="text" id="studentClass" placeholder="Contoh: IX F">
+    </div>
+
+    <div class="menu-grid">
+      <div class="card" onclick="openPage('materiPage')">
+        <div class="icon">📘</div>
+        <h2>Materi Lengkap</h2>
+        <p>Materi lengkap sejarah madzhab, perkembangan, metode istinbath, dan sikap teladan.</p>
+      </div>
+
+      <div class="card" onclick="openPage('timelinePage')">
+        <div class="icon">🕰️</div>
+        <h2>Timeline Sejarah</h2>
+        <p>Garis waktu perkembangan fikih Islam dari masa Nabi hingga kodifikasi madzhab.</p>
+      </div>
+
+      <div class="card" onclick="openPage('biografiPage')">
+        <div class="icon">👳‍♂️</div>
+        <h2>Biografi Imam Madzhab</h2>
+        <p>Kisah singkat kehidupan 4 imam madzhab dan pelajaran yang bisa diteladani.</p>
+      </div>
+
+      <div class="card" onclick="openPage('metodePage')">
+        <div class="icon">⚖️</div>
+        <h2>Metode Mengambil Hukum</h2>
+        <p>Belajar Al-Qur’an, Hadis, Ijma’, Qiyas, dan perbedaan pendekatan madzhab.</p>
+      </div>
+
+      <div class="card" onclick="openPage('modePage')">
+        <div class="icon">🎯</div>
+        <h2>Mulai Game</h2>
+        <p>Pilih Mode Latihan atau Mode Ujian. Skor terbaik masuk leaderboard.</p>
+      </div>
+
+      <div class="card" onclick="openPage('leaderboardPage'); renderLeaderboard();">
+        <div class="icon">🏆</div>
+        <h2>Leaderboard</h2>
+        <p>Lihat peringkat nilai terbaik. Data tersimpan otomatis di browser.</p>
+      </div>
+    </div>
+
+    <div class="box box-yellow" style="margin-top:15px;">
+      🎵 Musik & Suara:
+      <button class="btn btn-green no-print" onclick="toggleMusic()">🎶 ON/OFF Musik</button>
+      <button class="btn no-print" onclick="playClick()">🔊 Tes Suara Klik</button>
+    </div>
+  </div>
+
+  <!-- MODE -->
+  <div id="modePage" class="hidden">
+    <h2 class="section-title">🎯 Pilih Mode Game</h2>
+
+    <div class="box">
+      Mode Latihan cocok untuk belajar. Mode Ujian cocok untuk penilaian.
+    </div>
+
+    <div class="box box-yellow">
+      Mode:
+      <select id="gameMode">
+        <option value="latihan">Latihan</option>
+        <option value="ujian">Ujian</option>
+      </select>
+
+      Timer:
+      <select id="timerMode">
+        <option value="on">ON (25 detik)</option>
+        <option value="off">OFF</option>
+      </select>
+
+      Jumlah Soal:
+      <select id="questionCount">
+        <option value="10">10 soal</option>
+        <option value="15">15 soal</option>
+        <option value="20">20 soal</option>
+        <option value="25" selected>25 soal</option>
+      </select>
+    </div>
+
+    <button class="btn btn-green" onclick="startGame()">🚀 Mulai Game</button>
+    <button class="btn btn-gray" onclick="openPage('menuPage')">⬅️ Kembali Menu</button>
+  </div>
+
+  <!-- MATERI -->
+  <div id="materiPage" class="hidden">
+    <h2 class="section-title">📘 Materi Lengkap</h2>
+
+    <div class="box">
+      <b>1. Pengertian Madzhab</b><br>
+      Madzhab adalah jalan/metode ulama dalam memahami dalil Al-Qur’an dan Hadis untuk menetapkan hukum fikih.
+      Madzhab bukan agama baru, tetapi hasil ijtihad para ulama dalam masalah cabang.
+    </div>
+
+    <div class="box">
+      <b>2. Sejarah Perkembangan Fikih</b><br>
+      - Masa Nabi: hukum langsung dari wahyu dan sunnah.<br>
+      - Masa Sahabat: ijtihad dilakukan ketika muncul persoalan baru.<br>
+      - Masa Tabi’in: fikih berkembang di Madinah, Makkah, Kufah, Basrah.<br>
+      - Masa Imam Mujtahid: muncul imam madzhab dengan metode istinbath masing-masing.
+    </div>
+
+    <div class="box">
+      <b>3. Faktor Munculnya Perbedaan Madzhab</b><br>
+      1) Perbedaan pemahaman dalil<br>
+      2) Perbedaan penilaian hadis (shahih/hasan/dhaif)<br>
+      3) Perbedaan penggunaan qiyas<br>
+      4) Perbedaan kondisi wilayah dan adat<br>
+      5) Perbedaan cara menggabungkan dalil yang tampak berbeda
+    </div>
+
+    <div class="box box-yellow">
+      <b>4. Sikap Meneladani Imam Madzhab</b><br>
+      - Mengutamakan adab dalam diskusi<br>
+      - Tidak fanatik buta<br>
+      - Tidak mudah menyesatkan orang<br>
+      - Menghormati ulama dan pendapatnya<br>
+      - Menjaga ukhuwah Islamiyah
+    </div>
+
+    <button class="btn btn-gray" onclick="openPage('menuPage')">⬅️ Kembali Menu</button>
+  </div>
+
+  <!-- TIMELINE -->
+  <div id="timelinePage" class="hidden">
+    <h2 class="section-title">🕰️ Timeline Sejarah Madzhab</h2>
+
+    <div class="timeline">
+      <div class="timeline-item"><b>Masa Nabi ﷺ</b><br>Hukum Islam bersumber langsung dari wahyu dan sunnah.</div>
+      <div class="timeline-item"><b>Masa Sahabat</b><br>Sahabat berijtihad saat muncul persoalan baru.</div>
+      <div class="timeline-item"><b>Masa Tabi’in</b><br>Fikih berkembang di berbagai wilayah.</div>
+      <div class="timeline-item"><b>Masa Imam Mujtahid</b><br>Muncul ulama besar dengan metode istinbath.</div>
+      <div class="timeline-item"><b>Kodifikasi Fikih</b><br>Pendapat madzhab dibukukan oleh murid-muridnya.</div>
+      <div class="timeline-item"><b>Masa Modern</b><br>Madzhab dipelajari sebagai warisan ilmu, persatuan tetap dijaga.</div>
+    </div>
+
+    <button class="btn btn-gray" onclick="openPage('menuPage')">⬅️ Kembali Menu</button>
+  </div>
+
+  <!-- BIOGRAFI -->
+  <div id="biografiPage" class="hidden">
+    <h2 class="section-title">👳‍♂️ Biografi Imam Madzhab</h2>
+
+    <div class="grid-2">
+      <div class="profile">
+        <h3>🟦 Imam Abu Hanifah (80–150 H)</h3>
+        <p>Ulama Irak, terkenal kuat dalam qiyas dan analisis. Teladan: cerdas dan hati-hati dalam fatwa.</p>
+      </div>
+      <div class="profile">
+        <h3>🟩 Imam Malik (93–179 H)</h3>
+        <p>Ulama Madinah, kuat dalam hadis dan amal penduduk Madinah. Teladan: menjaga sunnah dan adab.</p>
+      </div>
+      <div class="profile">
+        <h3>🟨 Imam Syafi’i (150–204 H)</h3>
+        <p>Penyusun dasar Ushul Fikih. Menggabungkan dalil hadis dan qiyas secara seimbang. Teladan: tekun menuntut ilmu.</p>
+      </div>
+      <div class="profile">
+        <h3>🟥 Imam Ahmad bin Hanbal (164–241 H)</h3>
+        <p>Ahli hadis besar, sangat hati-hati dalam menetapkan hukum. Teladan: sabar dan istiqamah.</p>
+      </div>
+    </div>
+
+    <div class="box box-yellow">
+      <b>Pesan:</b> Para imam madzhab saling menghormati. Mereka berbeda pendapat, tetapi tidak saling menghina.
+      Kita wajib meneladani akhlak mereka.
+    </div>
+
+    <button class="btn btn-gray" onclick="openPage('menuPage')">⬅️ Kembali Menu</button>
+  </div>
+
+  <!-- METODE -->
+  <div id="metodePage" class="hidden">
+    <h2 class="section-title">⚖️ Metode Mengambil Hukum</h2>
+
+    <div class="box">
+      <b>Sumber hukum Islam:</b><br>
+      1) Al-Qur’an<br>
+      2) Hadis<br>
+      3) Ijma’<br>
+      4) Qiyas<br><br>
+      Selain itu ada metode tambahan seperti istihsan, maslahah mursalah, dan urf yang digunakan sebagian madzhab.
+    </div>
+
+    <div class="box box-yellow">
+      <b>Perbedaan pendekatan:</b><br>
+      Hanafi: lebih luas memakai qiyas<br>
+      Maliki: memperhatikan amal penduduk Madinah<br>
+      Syafi’i: sistematis menyeimbangkan hadis dan qiyas<br>
+      Hanbali: sangat kuat berpegang pada hadis dan atsar
+    </div>
+
+    <button class="btn btn-gray" onclick="openPage('menuPage')">⬅️ Kembali Menu</button>
+  </div>
+
+  <!-- LEADERBOARD -->
+  <div id="leaderboardPage" class="hidden">
+    <h2 class="section-title">🏆 Leaderboard Nilai Terbaik</h2>
+
+    <div class="box">
+      Leaderboard ini tersimpan otomatis di browser komputer/laptop yang digunakan.
+      Jika dibuka di perangkat lain, leaderboard akan berbeda.
+    </div>
+
+    <div class="leaderboard">
+      <table>
+        <thead>
+          <tr>
+            <th>Peringkat</th>
+            <th>Nama</th>
+            <th>Kelas</th>
+            <th>Skor</th>
+            <th>Mode</th>
+          </tr>
+        </thead>
+        <tbody id="leaderboardBody"></tbody>
+      </table>
+    </div>
+
+    <button class="btn btn-red" onclick="resetLeaderboard()">🗑️ Reset Leaderboard</button>
+    <button class="btn btn-gray" onclick="openPage('menuPage')">⬅️ Kembali Menu</button>
+  </div>
+
+  <!-- GAME -->
+  <div id="gamePage" class="hidden">
+    <h2 class="section-title">🎮 Arena Game</h2>
+
+    <div class="info-bar">
+      <div class="badge-ui">👤 Nama: <span id="nameText">-</span></div>
+      <div class="badge-ui">🏫 Kelas: <span id="classText">-</span></div>
+      <div class="badge-ui">🎯 Mode: <span id="modeText">-</span></div>
+      <div class="badge-ui">⭐ Skor: <span id="scoreText">0</span></div>
+      <div class="badge-ui">❤️ Nyawa: <span id="lifeText">3</span></div>
+      <div class="badge-ui">⏳ Waktu: <span id="timerText">25</span>s</div>
+      <div class="badge-ui">🔥 Combo: <span id="comboText">0</span></div>
+      <div class="badge-ui">🏅 Badge: <span id="badgeText">Belum ada</span></div>
+    </div>
+
+    <div class="progress-wrap">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="question-box">
+      <h3 id="questionTitle"></h3>
+      <p id="questionText"></p>
+
+      <div class="options" id="optionsBox"></div>
+
+      <div class="feedback" id="feedbackBox"></div>
+
+      <button class="btn btn-green hidden no-print" id="nextBtn" onclick="nextQuestion()">➡️ Lanjut</button>
+      <button class="btn btn-red no-print" onclick="giveUp()">🏳️ Menyerah</button>
+      <button class="btn btn-gray no-print" onclick="openPage('menuPage')">🏠 Kembali Menu</button>
+    </div>
+
+    <div class="certificate hidden" id="finishBox">
+      <h2>📜 Sertifikat Hasil Gim Edukasi</h2>
+      <p id="finalMessage"></p>
+
+      <div class="box box-yellow" id="sendBox" style="display:none;">
+        <b>Status Pengiriman Nilai:</b><br>
+        <span id="sendStatus">Mengirim...</span>
+      </div>
+
+      <div style="text-align:center;" class="no-print">
+        <button class="btn btn-green" onclick="restartGame()">🔄 Main Lagi</button>
+        <button class="btn btn-gray" onclick="openPage('menuPage')">🏠 Kembali Menu</button>
+        <button class="btn" onclick="window.print()">🖨️ Cetak / Simpan PDF</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // ============================================================
+  // LINK GOOGLE APPS SCRIPT MILIK BAPAK (SUDAH DIISI)
+  // ============================================================
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwPuHs3Lz_u05Hyl1PxqIgU2JxQIgy1EmIA-NWmpFQVX_8HnJONykjimsa-oorSsuu-/exec";
+
+  // ===== LOADING =====
+  window.onload = function(){
+    setTimeout(()=>{
+      document.getElementById("loadingScreen").style.display="none";
+    },1200);
+  };
+
+  // ===== AUDIO (BASIC GENERATED) =====
+  let audioCtx = null;
+  let musicOn = false;
+  let musicInterval = null;
+
+  function playClick(){
+    if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type="square";
+    osc.frequency.value=600;
+    gain.gain.value=0.05;
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime+0.08);
+  }
+
+  function toggleMusic(){
+    playClick();
+    if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    if(musicOn){
+      musicOn=false;
+      clearInterval(musicInterval);
+      alert("Musik dimatikan.");
+    }else{
+      musicOn=true;
+      alert("Musik dinyalakan.");
+      let note = 220;
+      musicInterval = setInterval(()=>{
+        if(!musicOn) return;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type="sine";
+        osc.frequency.value=note;
+        gain.gain.value=0.02;
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime+0.25);
+        note = (note===220)?330:(note===330)?440:220;
+      },300);
+    }
+  }
+
+  // ===== NAVIGATION =====
+  function openPage(pageId){
+    playClick();
+    ["menuPage","modePage","materiPage","timelinePage","biografiPage","metodePage","leaderboardPage","gamePage"].forEach(id=>{
+      document.getElementById(id).classList.add("hidden");
+    });
+    document.getElementById(pageId).classList.remove("hidden");
+  }
+
+  // ===== BANK SOAL 60 =====
+  const questionBank = [
+    {q:"Apa arti madzhab dalam fikih Islam?", options:["Organisasi Islam","Metode ulama menetapkan hukum","Kitab tafsir","Bahasa Arab"], ans:1},
+    {q:"Madzhab fikih utama Ahlussunnah berjumlah...", options:["2","3","4","5"], ans:2},
+    {q:"Pendiri Madzhab Hanafi adalah...", options:["Imam Malik","Imam Abu Hanifah","Imam Syafi’i","Imam Ahmad"], ans:1},
+    {q:"Pendiri Madzhab Maliki adalah...", options:["Imam Malik bin Anas","Imam Abu Hanifah","Imam Syafi’i","Imam Ahmad"], ans:0},
+    {q:"Pendiri Madzhab Syafi’i adalah...", options:["Imam Ahmad","Imam Abu Hanifah","Imam Muhammad bin Idris Asy-Syafi’i","Imam Malik"], ans:2},
+    {q:"Pendiri Madzhab Hanbali adalah...", options:["Imam Ahmad bin Hanbal","Imam Syafi’i","Imam Malik","Imam Abu Hanifah"], ans:0},
+    {q:"Perbedaan madzhab terjadi karena...", options:["Ulama ingin bertengkar","Perbedaan ijtihad","Al-Qur’an berbeda","Hadis tidak ada"], ans:1},
+    {q:"Ikhtilaf artinya...", options:["Kesepakatan ulama","Perbedaan pendapat","Shalat berjamaah","Membaca Al-Qur’an"], ans:1},
+    {q:"Khilafiyah artinya...", options:["Masalah yang diperselisihkan","Masalah akidah","Masalah haram semua","Masalah wajib"], ans:0},
+    {q:"Qunut Subuh termasuk masalah...", options:["Akidah","Khilafiyah fikih","Syirik","Rukun iman"], ans:1},
+    {q:"Tarawih 8 atau 20 rakaat termasuk masalah...", options:["Akidah","Khilafiyah fikih","Syirik","Rukun iman"], ans:1},
+    {q:"Basmalah keras/pelan menunjukkan...", options:["Shalat batal","Perbedaan pemahaman dalil","Islam tanpa aturan","Ulama membuat agama baru"], ans:1},
+    {q:"Sumber hukum Islam utama adalah...", options:["Tradisi daerah","Al-Qur’an dan Hadis","Pendapat tokoh","Budaya"], ans:1},
+    {q:"Ijma’ berarti...", options:["Kesepakatan ulama","Perbedaan pendapat","Analogi","Cerita sejarah"], ans:0},
+    {q:"Qiyas adalah...", options:["Menolak hadis","Analogi hukum karena sebab sama","Menghapus Al-Qur’an","Fatwa bebas"], ans:1},
+    {q:"Imam Syafi’i terkenal sebagai penyusun ilmu...", options:["Balaghah","Ushul Fikih","Ilmu falak","Matematika"], ans:1},
+    {q:"Imam Malik hidup dan mengajar di...", options:["Kufah","Madinah","Mesir","Basrah"], ans:1},
+    {q:"Imam Abu Hanifah berkembang di wilayah...", options:["Irak","Madinah","Syam","Yaman"], ans:0},
+    {q:"Imam Ahmad bin Hanbal terkenal dalam bidang...", options:["Hadis","Astronomi","Kedokteran","Seni"], ans:0},
+    {q:"Perbedaan posisi tangan saat shalat menunjukkan...", options:["Shalat batal","Ada khilafiyah","Islam tidak jelas","Wajib sama semua"], ans:1},
+    {q:"Sikap terbaik melihat perbedaan madzhab adalah...", options:["Menyalahkan","Menghormati","Menghina","Bertengkar"], ans:1},
+    {q:"Masa perkembangan fikih setelah Nabi adalah masa...", options:["Sahabat","Modern","Penjajahan","Tidak ada"], ans:0},
+    {q:"Perbedaan madzhab dalam wudhu terjadi karena...", options:["Ijtihad ulama","Al-Qur’an berbeda","Shalat tidak wajib","Hadis palsu semua"], ans:0},
+    {q:"Tujuan belajar madzhab adalah...", options:["Menang debat","Memahami fikih dengan ilmu","Membenci orang lain","Menolak ulama"], ans:1},
+    {q:"Moderasi beragama berarti...", options:["Fanatik","Menghormati perbedaan","Membenci kelompok lain","Tidak peduli agama"], ans:1},
+    {q:"Jika imam berbeda madzhab, sikap tepat adalah...", options:["Keluar jamaah","Tetap ikut selama rukun terpenuhi","Protes saat shalat","Membuat keributan"], ans:1},
+    {q:"Di mushalla sekolah ada yang qunut dan ada yang tidak. Apa yang harus dilakukan?", options:["Bertengkar","Menghargai perbedaan","Menuduh sesat","Keluar mushalla"], ans:1},
+    {q:"Teman berkata tarawih 8 rakaat salah. Jawaban terbaik?", options:["Benar harus 20","Tarawih khilafiyah, jangan saling menyalahkan","Tidak usah tarawih","Tarawih haram"], ans:1},
+    {q:"Ada perbedaan basmalah keras/pelan, maka kita harus...", options:["Membatalkan shalat","Menjaga adab dan tetap khusyuk","Menghina imam","Tidak shalat"], ans:1},
+    {q:"Seorang siswa menuduh madzhab lain sesat. Sikap guru sebaiknya...", options:["Mendiamkan","Meluruskan dengan ilmu dan adab","Memarahi tanpa alasan","Mengusir siswa"], ans:1},
+    {q:"Mengapa para imam madzhab tetap dihormati?", options:["Karena membuat agama baru","Karena ulama mujtahid yang berijtihad berdasarkan dalil","Karena semua sama saja","Karena tidak punya kitab"], ans:1},
+    {q:"Apa makna ijtihad?", options:["Menghafal","Mencari hukum dengan sungguh-sungguh berdasarkan dalil","Mengarang hukum","Menolak ulama"], ans:1},
+    {q:"Mengapa hadis bisa berbeda penilaian?", options:["Karena ulama berbeda metode menilai sanad dan matan","Karena hadis tidak ada","Karena Qur’an berubah","Karena semua hadis palsu"], ans:0},
+    {q:"Amal penduduk Madinah menjadi perhatian khusus madzhab...", options:["Hanafi","Maliki","Syafi’i","Hanbali"], ans:1},
+    {q:"Madzhab Syafi’i terkenal dengan pendekatan...", options:["Mengabaikan hadis","Menyeimbangkan hadis dan qiyas","Tidak menggunakan qiyas","Menolak ijma’"], ans:1},
+    {q:"Madzhab Hanbali sangat kuat dalam...", options:["Hadis dan atsar","Matematika","Seni","Filsafat Yunani"], ans:0},
+    {q:"Mengapa umat Islam harus menjaga ukhuwah?", options:["Agar mudah bertengkar","Agar tetap bersatu dalam akidah dan persaudaraan","Agar semua sama","Agar tidak belajar"], ans:1},
+    {q:"Contoh sikap fanatik buta adalah...", options:["Menghormati ulama","Menganggap hanya pendapatnya benar dan lainnya salah mutlak","Belajar fikih","Bersikap sopan"], ans:1},
+    {q:"Perbedaan fikih terjadi pada masalah...", options:["Pokok iman","Cabang ibadah dan muamalah","Keimanan kepada Allah","Kewajiban percaya malaikat"], ans:1},
+    {q:"Dalam shalat, rukun wajib harus...", options:["Boleh diubah","Sama dan tidak boleh ditinggalkan","Tidak perlu dilakukan","Tergantung madzhab"], ans:1},
+    {q:"Mengapa madzhab bukan sumber perpecahan?", options:["Karena semua madzhab sesat","Karena perbedaan adalah rahmat dalam cabang fikih","Karena tidak ada dalil","Karena ulama salah semua"], ans:1},
+    {q:"Sikap saat berdiskusi khilafiyah adalah...", options:["Sopan dan ilmiah","Emosi dan menghina","Memaksa","Membuat gaduh"], ans:0},
+    {q:"Jika tidak paham perbedaan fikih, sebaiknya...", options:["Membuat status menyindir","Bertanya kepada guru/ustadz","Menghina orang","Menuduh sesat"], ans:1},
+    {q:"Perbedaan dalam wudhu menyentuh lawan jenis termasuk...", options:["Akidah","Khilafiyah fikih","Syirik","Rukun iman"], ans:1},
+    {q:"Metode qiyas digunakan untuk...", options:["Membuat hukum tanpa dalil","Mengambil hukum dengan analogi sebab yang sama","Menghapus hadis","Menolak ijma’"], ans:1},
+    {q:"Imam madzhab disebut mujtahid karena...", options:["Mengarang hukum","Memiliki kemampuan ijtihad berdasarkan dalil","Tidak belajar hadis","Menolak Qur’an"], ans:1},
+    {q:"Adab meneladani ulama adalah...", options:["Menghina ulama lain","Menghormati semua ulama dan menjaga persaudaraan","Fanatik buta","Tidak belajar fikih"], ans:1},
+    {q:"Perbedaan madzhab seharusnya membuat kita...", options:["Benci orang lain","Lebih semangat belajar dan menghargai","Tidak shalat berjamaah","Meninggalkan masjid"], ans:1},
+    {q:"Jika berbeda pendapat dalam fikih, maka...", options:["Harus berkelahi","Tetap bersatu dan saling menghormati","Membuat permusuhan","Memutus silaturahmi"], ans:1},
+    {q:"Menghormati perbedaan madzhab termasuk sikap...", options:["Radikal","Moderasi beragama","Fanatik","Keras kepala"], ans:1},
+    {q:"Perbedaan pendapat ulama adalah...", options:["Aib","Rahmat jika disikapi dengan adab","Kesalahan semua ulama","Bukti agama rusak"], ans:1},
+    {q:"Ulama menetapkan hukum berdasarkan...", options:["Dalil dan metode ilmiah","Emosi","Kebencian","Tradisi tanpa dasar"], ans:0},
+    {q:"Mengapa belajar sejarah madzhab penting?", options:["Untuk mengejek","Agar paham perkembangan ilmu fikih","Agar menolak ulama","Agar tidak shalat"], ans:1},
+    {q:"Cara menjaga ukhuwah di sekolah adalah...", options:["Membuat kelompok berbeda","Saling menghargai dalam ibadah khilafiyah","Menyalahkan teman","Mempermalukan orang"], ans:1},
+    {q:"Jika ada perbedaan bacaan basmalah, yang harus dilakukan...", options:["Marah","Tetap shalat dengan khusyuk","Membatalkan shalat","Menghina imam"], ans:1},
+    {q:"Kata yang tepat untuk masalah khilafiyah adalah...", options:["Sesat","Beda pendapat yang dibolehkan","Haram semua","Wajib sama"], ans:1},
+    {q:"Madzhab membantu umat Islam karena...", options:["Membuat bingung","Memberi pedoman fikih yang sistematis","Membuat perpecahan","Menghapus dalil"], ans:1}
+  ];
+
+  // ===== GAME STATE =====
+  let questions = [];
+  let currentIndex = 0;
+  let score = 0;
+  let life = 3;
+  let combo = 0;
+  let timer = 25;
+  let timerInterval = null;
+  let answered = false;
+  let badge = "Belum ada";
+
+  function shuffleArray(arr){
+    for(let i=arr.length-1;i>0;i--){
+      const j=Math.floor(Math.random()*(i+1));
+      [arr[i],arr[j]]=[arr[j],arr[i]];
+    }
+    return arr;
+  }
+
+  function startGame(){
+    playClick();
+
+    const name=document.getElementById("studentName").value.trim();
+    const kelas=document.getElementById("studentClass").value.trim();
+    if(name==="" || kelas===""){
+      alert("Silakan isi Nama dan Kelas terlebih dahulu!");
+      return;
+    }
+
+    const mode=document.getElementById("gameMode").value;
+    const timerMode=document.getElementById("timerMode").value;
+    const count=parseInt(document.getElementById("questionCount").value);
+
+    questions = shuffleArray([...questionBank]).slice(0,count);
+
+    currentIndex=0;
+    score=0;
+    combo=0;
+    life=3;
+    badge="Belum ada";
+
+    document.getElementById("nameText").innerText=name;
+    document.getElementById("classText").innerText=kelas;
+    document.getElementById("modeText").innerText=(mode==="ujian")?"Ujian":"Latihan";
+    document.getElementById("badgeText").innerText=badge;
+
+    openPage("gamePage");
+    document.getElementById("finishBox").classList.add("hidden");
+    document.getElementById("sendBox").style.display="none";
+
+    if(mode==="ujian"){
+      document.getElementById("timerMode").value="on";
+    }
+
+    showQuestion();
+  }
+
+  function showQuestion(){
+    answered=false;
+    clearInterval(timerInterval);
+
+    const timerMode=document.getElementById("timerMode").value;
+    const qObj=questions[currentIndex];
+
+    document.getElementById("scoreText").innerText=score;
+    document.getElementById("lifeText").innerText=life;
+    document.getElementById("comboText").innerText=combo;
+    document.getElementById("badgeText").innerText=badge;
+
+    document.getElementById("questionTitle").innerText=
+      "Soal " + (currentIndex+1) + " / " + questions.length;
+
+    document.getElementById("questionText").innerText=qObj.q;
+
+    document.getElementById("feedbackBox").style.display="none";
+    document.getElementById("nextBtn").classList.add("hidden");
+
+    const optionsBox=document.getElementById("optionsBox");
+    optionsBox.innerHTML="";
+
+    qObj.options.forEach((opt,idx)=>{
+      const btn=document.createElement("button");
+      btn.innerText=opt;
+      btn.onclick=()=>checkAnswer(idx);
+      optionsBox.appendChild(btn);
+    });
+
+    document.getElementById("progressBar").style.width=
+      ((currentIndex)/questions.length*100)+"%";
+
+    if(timerMode==="on"){
+      timer=25;
+      document.getElementById("timerText").innerText=timer+"s";
+
+      timerInterval=setInterval(()=>{
+        timer--;
+        document.getElementById("timerText").innerText=timer+"s";
+        if(timer<=0){
+          clearInterval(timerInterval);
+          timeOut();
+        }
+      },1000);
+    }else{
+      document.getElementById("timerText").innerText="-";
+    }
+  }
+
+  function timeOut(){
+    if(answered) return;
+    answered=true;
+    life--;
+    combo=0;
+
+    const feedback=document.getElementById("feedbackBox");
+    feedback.style.display="block";
+    feedback.className="feedback wrong";
+    feedback.innerText="⏳ Waktu habis! Nyawa berkurang 1.";
+
+    document.getElementById("lifeText").innerText=life;
+    document.getElementById("comboText").innerText=combo;
+    document.getElementById("nextBtn").classList.remove("hidden");
+
+    if(life<=0){
+      finishGame("Game Over! Nyawa habis.");
+    }
+  }
+
+  function checkAnswer(selected){
+    if(answered) return;
+    answered=true;
+    clearInterval(timerInterval);
+
+    const qObj=questions[currentIndex];
+    const feedback=document.getElementById("feedbackBox");
+
+    feedback.style.display="block";
+
+    if(selected===qObj.ans){
+      score+=10;
+      combo++;
+
+      if(combo%3===0){
+        score+=10;
+        feedback.className="feedback correct";
+        feedback.innerText="✅ Benar! Kamu dapat bonus COMBO +10 poin!";
+      }else{
+        feedback.className="feedback correct";
+        feedback.innerText="✅ Benar! Jawaban tepat.";
+      }
+
+    }else{
+      life--;
+      combo=0;
+      feedback.className="feedback wrong";
+      feedback.innerText="❌ Salah. Nyawa berkurang 1.";
+    }
+
+    updateBadge();
+
+    document.getElementById("scoreText").innerText=score;
+    document.getElementById("lifeText").innerText=life;
+    document.getElementById("comboText").innerText=combo;
+    document.getElementById("badgeText").innerText=badge;
+
+    document.getElementById("nextBtn").classList.remove("hidden");
+
+    if(life<=0){
+      finishGame("Game Over! Nyawa habis.");
+    }
+  }
+
+  function updateBadge(){
+    const progress = (currentIndex+1) / questions.length;
+
+    if(progress >= 0.34 && badge==="Belum ada") badge="🥇 Paham Dasar Madzhab";
+    if(progress >= 0.67 && badge==="🥇 Paham Dasar Madzhab") badge="🥈 Ahli Sejarah & Metode";
+    if(progress >= 0.95) badge="🥉 Juara Moderasi";
+  }
+
+  function nextQuestion(){
+    playClick();
+    currentIndex++;
+
+    if(currentIndex>=questions.length){
+      finishGame("Selamat! Kamu menyelesaikan semua soal.");
+    }else{
+      showQuestion();
+    }
+  }
+
+  // ===== KIRIM NILAI KE GOOGLE SHEET =====
+  function sendScoreToGoogleSheet(name, kelas, score, mode, status, badge){
+    document.getElementById("sendBox").style.display="block";
+    document.getElementById("sendStatus").innerText="⏳ Mengirim nilai ke Google Sheet...";
+
+    fetch(SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        nama: name,
+        kelas: kelas,
+        skor: score,
+        mode: mode,
+        status: status,
+        badge: badge
+      })
+    })
+    .then(()=>{
+      document.getElementById("sendStatus").innerText="✅ Nilai berhasil dikirim ke Google Sheet.";
+    })
+    .catch(()=>{
+      document.getElementById("sendStatus").innerText="❌ Nilai gagal dikirim. Cek koneksi / Apps Script.";
+    });
+  }
+
+  function finishGame(status){
+    clearInterval(timerInterval);
+
+    document.getElementById("progressBar").style.width="100%";
+    document.getElementById("optionsBox").innerHTML="";
+    document.getElementById("feedbackBox").style.display="none";
+    document.getElementById("nextBtn").classList.add("hidden");
+
+    let rank="";
+    if(score>=220) rank="🏆 Duta Moderasi Beragama (Sangat Baik)";
+    else if(score>=160) rank="🎖️ Ahli Fikih Muda (Baik)";
+    else rank="📘 Pembelajar Fikih (Perlu Latihan Lagi)";
+
+    document.getElementById("finishBox").classList.remove("hidden");
+
+    const name=document.getElementById("studentName").value.trim();
+    const kelas=document.getElementById("studentClass").value.trim();
+    const mode=document.getElementById("gameMode").value;
+
+    document.getElementById("finalMessage").innerHTML=
+      "<b>Status:</b> "+status+"<br><br>"+
+      "<b>Nama:</b> "+name+"<br>"+
+      "<b>Kelas:</b> "+kelas+"<br>"+
+      "<b>Mode:</b> "+(mode==="ujian"?"Ujian":"Latihan")+"<br>"+
+      "<b>Skor Akhir:</b> "+score+"<br>"+
+      "<b>Badge:</b> "+badge+"<br>"+
+      "<b>Gelar:</b> "+rank+"<br><br>"+
+      "📌 <b>Pesan Moral:</b><br>"+
+      "Perbedaan madzhab adalah rahmat. Para imam madzhab berbeda pendapat namun tetap menjaga adab dan ukhuwah. "+
+      "Meneladani ulama berarti berilmu, santun, dan tidak mudah menyalahkan orang lain.";
+
+    saveToLeaderboard(name, kelas, score, mode);
+    sendScoreToGoogleSheet(name, kelas, score, mode, status, badge);
+  }
+
+  function restartGame(){
+    openPage("modePage");
+  }
+
+  function giveUp(){
+    finishGame("Kamu memilih berhenti. Silakan pelajari materi lalu coba lagi.");
+  }
+
+  // ===== LEADERBOARD STORAGE =====
+  function saveToLeaderboard(name, kelas, score, mode){
+    let data = JSON.parse(localStorage.getItem("leaderboardMadzhab") || "[]");
+    data.push({name, kelas, score, mode});
+    data.sort((a,b)=>b.score-a.score);
+    data = data.slice(0,10);
+    localStorage.setItem("leaderboardMadzhab", JSON.stringify(data));
+  }
+
+  function renderLeaderboard(){
+    let data = JSON.parse(localStorage.getItem("leaderboardMadzhab") || "[]");
+    const body = document.getElementById("leaderboardBody");
+    body.innerHTML="";
+
+    if(data.length===0){
+      body.innerHTML="<tr><td colspan='5'>Belum ada data nilai.</td></tr>";
+      return;
+    }
+
+    data.forEach((row,i)=>{
+      body.innerHTML += `
+        <tr>
+          <td>${i+1}</td>
+          <td>${row.name}</td>
+          <td>${row.kelas}</td>
+          <td>${row.score}</td>
+          <td>${row.mode==="ujian"?"Ujian":"Latihan"}</td>
+        </tr>
+      `;
+    });
+  }
+
+  function resetLeaderboard(){
+    if(confirm("Yakin reset leaderboard?")){
+      localStorage.removeItem("leaderboardMadzhab");
+      renderLeaderboard();
+    }
+  }
+</script>
+
+</body>
+</html>
